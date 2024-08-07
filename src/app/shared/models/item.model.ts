@@ -1,5 +1,6 @@
 export class ItemModel {
   constructor(
+    public idSalesBarang: number,
     public idBarang: string,
     public kodeBarang: string,
     public namaBarang: string,

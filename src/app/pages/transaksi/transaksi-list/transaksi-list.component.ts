@@ -1,19 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Subscription} from 'rxjs';
 
-import {TransaksiModel} from "../../../shared/models/transaksi.model";
-import {TransaksiService} from "../../../shared/services/transaksi/transaksi.service";
+import {TransaksiModel} from '../../../shared/models/transaksi.model';
+import {TransaksiService} from '../../../shared/services/transaksi/transaksi.service';
 
 @Component({
   selector: 'app-transaksi-list',
   templateUrl: './transaksi-list.component.html',
   styleUrls: ['./transaksi-list.component.css']
 })
-export class TransaksiListComponent implements OnInit {
+export class TransaksiListComponent implements OnInit, OnDestroy {
   transaksiCount: number = 0;
   transaksis: TransaksiModel[] = [];
   subscription!: Subscription;
+  grandTotal: number = 0;
 
   constructor(private transaksiService: TransaksiService) {
   }
@@ -22,6 +22,7 @@ export class TransaksiListComponent implements OnInit {
     this.subscription = this.transaksiService.transaksisChanged.subscribe(
       (transaksis: TransaksiModel[]) => {
         this.transaksis = transaksis;
+        this.calculateGrandTotal();
       }
     );
 
@@ -44,5 +45,15 @@ export class TransaksiListComponent implements OnInit {
         console.error('Error fetching transaksi count:', error);
       }
     );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  calculateGrandTotal(): void {
+    this.grandTotal = this.transaksis
+      .map(transaksi => Number(transaksi.total_bayar) || 0)  // Pastikan total_bayar adalah angka atau default ke 0
+      .reduce((sum, current) => sum + current, 0);
   }
 }

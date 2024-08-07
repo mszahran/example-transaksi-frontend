@@ -1,14 +1,13 @@
 import {Injectable} from "@angular/core";
 import {Subject} from "rxjs";
-import {map, tap, take, exhaustMap} from "rxjs/operators";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {map, tap} from "rxjs/operators";
+import {HttpClient} from "@angular/common/http";
 
 import {CustomerModel, TransaksiModel} from "../../../shared/models/transaksi.model";
 
 @Injectable()
 export class TransaksiService {
   transaksisChanged = new Subject<TransaksiModel[]>();
-
   private transaksis: TransaksiModel[] = [];
 
   constructor(private http: HttpClient) {
@@ -24,7 +23,6 @@ export class TransaksiService {
       'https://example-transaksi-api.local/api/v1/transaksi/list'
     ).pipe(
       map(response => {
-        // Ambil data dari kunci `data` dan pastikan itu adalah array
         const transaksis = response.data;
         if (!Array.isArray(transaksis)) {
           throw new Error('Expected `data` to be an array of transaksis');
@@ -39,7 +37,7 @@ export class TransaksiService {
           subtotal: transaksi.subtotal,
           diskon: transaksi.diskon,
           ongkir: transaksi.ongkir ? transaksi.ongkir : 0,
-          total_bayar: transaksi.total_bayar
+          total_bayar: Number(transaksi.total_bayar)  // Konversi ke number
         }));
       }),
       tap(transaksis => {

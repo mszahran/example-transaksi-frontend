@@ -13,7 +13,7 @@
           data-bs-placement="top"
           data-bs-trigger="hover"
           title="Click to add a user">
-          <a  routerLink="/transaksi/new"  class="btn btn-sm btn-light-primary">
+          <a routerLink="/transaksi/new" class="btn btn-sm btn-light-primary">
             Tambah Transaksi
           </a>
         </div>
@@ -38,7 +38,7 @@
             <th><strong>Total</strong></th>
           </tr>
           </thead>
-          <tbody><!-- Di sini Anda dapat menggunakan *ngFor untuk menampilkan data transaksi -->
+          <tbody>
           <tr *ngFor="let transaction of transaksis; let i = index">
             <td class="text-center">{{ i + 1 }}</td>
             <td>{{ transaction.kode }}</td>
@@ -54,12 +54,11 @@
           <tr>
             <td colspan="7"></td>
             <td><strong>Grand Total:</strong></td>
-            <td></td>
+            <td>{{ grandTotal | currency:' ':'symbol' }}</td>
           </tr>
           </tfoot>
         </table>
       </div>
     </div>
-    <!--<router-outlet></router-outlet>-->
   </div>
 </div>

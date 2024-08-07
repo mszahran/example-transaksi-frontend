@@ -27,7 +27,7 @@ export class AuthenticationService {
 
   login(email: string, password: string) {
     return this.http.post<ResponseAuthentication>(
-      'https://example-angular-project-api.local/api/v1/login',
+      'https://example-transaksi-api.local/api/v1/login',
       {
         email: email,
         password: password
@@ -41,7 +41,7 @@ export class AuthenticationService {
 
   signup(fullname: string, username: string, email: string, password: string) {
     return this.http.post<ResponseAuthentication>(
-      'https://example-angular-project-api.local/api/v1/register',
+      'https://example-transaksi-api.local/api/v1/register',
       {
         name: fullname,
         username: username,

@@ -18,6 +18,7 @@ import {BarangTransaksiModel} from "../../../shared/models/barang-transaksi.mode
 export class TransaksiCreateComponent implements OnInit {
   isLoading: boolean = false;
   isSelected: boolean = false;
+  isEditing: boolean = false;
   transaksiData: NoTransaksiModel | undefined;
   barangTransaksi: BarangTransaksiModel[] = [];
   barangList: BarangModel[] = [];
@@ -26,6 +27,7 @@ export class TransaksiCreateComponent implements OnInit {
   selectedCustomerName: string = '';
   selectedCustomerTelp: number = 0;
   selectedItem: any;
+  idBarangTransaksi = 0;
   qty: number = 1;
   diskon: number = 0;
   userDiskon: number = 0;
@@ -70,14 +72,13 @@ export class TransaksiCreateComponent implements OnInit {
     this.http.get<{ message: string; data: any[] }>('https://example-transaksi-api.local/api/v1/barang/list')
       .subscribe(response => {
         this.isLoading = false;
+        this.isSelected = false;
         this.barangList = response.data;
       });
   }
 
   onItemChange(value: any): void {
-    if (value != '') {
-      this.isSelected = false;
-    }
+    this.isSelected = value !== '';
   }
 
   addItem(): void {
@@ -117,6 +118,7 @@ export class TransaksiCreateComponent implements OnInit {
             this.diskon = 0;
 
             this.isLoading = false;
+            this.isSelected = false;
           },
           error => {
             this.isLoading = false;
@@ -125,6 +127,66 @@ export class TransaksiCreateComponent implements OnInit {
           }
         );
     }
+  }
+
+  editItem(id: number): void {
+    this.isLoading = true;
+    this.idBarangTransaksi = id;
+
+    this.http.get<{
+      message: string,
+      data: any
+    }>(`https://example-transaksi-api.local/api/v1/transaksi/barang-transaksi/detail/${id}`)
+      .subscribe(
+        response => {
+          const data = response.data;
+          if (data.m_barang && data.m_barang.length > 0) {
+            this.selectedItem = data.m_barang[0].kode;
+          }
+          this.qty = Number(data.qty);
+          this.diskon = Number(data.diskon_pct);
+          this.isEditing = true;
+          this.isLoading = false;
+        },
+        error => {
+          console.error('Error fetching item detail:', error);
+          this.isLoading = false;
+          this.isEditing = false;
+        }
+      );
+  }
+
+  saveItem(): void {
+    this.isLoading = true;
+
+    const updateData = {
+      id: this.idBarangTransaksi,
+      kode_barang: this.selectedItem,
+      qty: this.qty,
+      diskon_pct: this.diskon
+    };
+
+    this.http.put<{
+      message: string
+    }>(`https://example-transaksi-api.local/api/v1/transaksi/barang-transaksi/update`, updateData)
+      .subscribe(
+        response => {
+
+          this.fetchBarangTransaksi();
+
+          this.selectedItem = '';
+          this.qty = 1;
+          this.diskon = 0;
+
+          this.isLoading = false;
+          this.isEditing = false;
+        },
+        error => {
+          console.error('Error updating item:', error);
+          this.isLoading = false;
+          this.isEditing = true;
+        }
+      );
   }
 
   fetchBarangTransaksi(): void {
@@ -136,6 +198,7 @@ export class TransaksiCreateComponent implements OnInit {
         .subscribe(response => {
           const apiItems = response.data;
           this.items = apiItems.map(item => new ItemModel(
+            item.id,
             item.id,
             item.m_barang[0].kode,
             item.m_barang[0].nama,
