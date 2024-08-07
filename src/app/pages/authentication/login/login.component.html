@@ -1,0 +1,91 @@
+<!--begin::Form-->
+<form
+  class="form w-100"
+  id="kt_login_signin_form"
+  novalidate="novalidate"
+  #authForm="ngForm"
+  (ngSubmit)="onSubmit(authForm)">
+  <!--begin::Heading-->
+  <div class="text-center mb-10">
+    <h1 class="text-dark mb-3">Sign In to Example</h1>
+    <div class="text-gray-400 fw-bold fs-4">
+      New Here?
+      <a routerLink="/auth/register"
+         id="kt_login_signup"
+         class="link-primary fw-bolder"
+         (click)="onRegisterAccount()">Register here</a>
+    </div>
+  </div>
+  <!--end::Heading-->
+
+  <!-- begin::Alert error-->
+  <ng-template appPlaceholder></ng-template>
+  <!-- end::Alert error-->
+
+  <!--begin::Form group-->
+  <div class="fv-row mb-10">
+    <label class="form-label fs-6 fw-bolder text-dark">Email</label>
+    <input
+      type="text"
+      id="email"
+      class="form-control form-control-lg form-control-solid"
+      name="email"
+      placeholder="Enter your email..."
+      ngModel
+      required>
+  </div>
+  <!--end::Form group-->
+
+  <!--begin::Form group-->
+  <div class="fv-row mb-10">
+    <div class="d-flex justify-content-between mt-n5">
+      <div class="d-flex flex-stack mb-2">
+        <label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
+      </div>
+    </div>
+    <input
+      type="password"
+      id="password"
+      class="form-control form-control-lg form-control-solid"
+      ngModel
+      name="password"
+      placeholder="Enter your password..."
+      required>
+  </div>
+  <!--end::Form group-->
+
+  <!--begin::Action-->
+  <div class="text-center">
+    <button
+      type="submit"
+      id="kt_sign_in_submit"
+      [disabled]="!authForm.valid || isLoading"
+      class="btn btn-lg btn-primary w-100">
+      <ng-container *ngIf="(isLoading) === false">
+        <span class="indicator-label">Login</span>
+      </ng-container>
+      <ng-container *ngIf="isLoading">
+        <span class="indicator-progress" [style.display]="'block'">
+          Please wait...
+          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+        </span>
+      </ng-container>
+    </button>
+  </div>
+  <!--end::Action-->
+</form>
+<!--end::Form-->
+
+<ng-template
+  #formError
+  let-control="control"
+  let-message="message"
+  let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+    <div class="fv-plugins-message-container">
+      <span role="alert">
+        {{ message }}
+      </span>
+    </div>
+  </ng-container>
+</ng-template>

@@ -1,0 +1,65 @@
+<app-header></app-header>
+<div class="content d-flex flex-column flex-column-fluid">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title align-items-start flex-column">
+          <span class="card-label fw-bolder fs-3 mb-1">Daftar Transaksi</span>
+          <span class="text-muted fw-bold fs-7">{{ transaksiCount }} Data Transaksi</span>
+        </h3>
+        <div
+          class="card-toolbar"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          data-bs-trigger="hover"
+          title="Click to add a user">
+          <a  routerLink="/transaksi/new"  class="btn btn-sm btn-light-primary">
+            Tambah Transaksi
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="d-flex justify-content-end">
+          <input type="text" name="search" class="form-control form-control-solid mb-3 mb-lg-3 w-25"
+                 placeholder="Cari.....">
+        </div>
+        <table
+          class="table table-row-gray-300 align-middle gs-0 gy-4 table-hover table-striped table-row-bordered table-bordered">
+          <thead>
+          <tr>
+            <th class="text-center"><strong>No</strong></th>
+            <th><strong>No Transaksi</strong></th>
+            <th><strong>Tanggal</strong></th>
+            <th><strong>Nama Customer</strong></th>
+            <th><strong>Jumlah Barang</strong></th>
+            <th><strong>Sub Total</strong></th>
+            <th><strong>Diskon</strong></th>
+            <th><strong>Ongkir</strong></th>
+            <th><strong>Total</strong></th>
+          </tr>
+          </thead>
+          <tbody><!-- Di sini Anda dapat menggunakan *ngFor untuk menampilkan data transaksi -->
+          <tr *ngFor="let transaction of transaksis; let i = index">
+            <td class="text-center">{{ i + 1 }}</td>
+            <td>{{ transaction.kode }}</td>
+            <td>{{ transaction.tgl }}</td>
+            <td>{{ transaction.customer.name }}</td>
+            <td>{{ '0' }}</td>
+            <td>{{ transaction.subtotal | currency:' ':'symbol' }}</td>
+            <td>{{ transaction.diskon | currency:' ':'symbol' }}</td>
+            <td>{{ transaction.ongkir | currency:' ':'symbol' }}</td>
+            <td>{{ transaction.total_bayar | currency:' ':'symbol' }}</td>
+          </tr>
+          <tfoot>
+          <tr>
+            <td colspan="7"></td>
+            <td><strong>Grand Total:</strong></td>
+            <td></td>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <!--<router-outlet></router-outlet>-->
+  </div>
+</div>

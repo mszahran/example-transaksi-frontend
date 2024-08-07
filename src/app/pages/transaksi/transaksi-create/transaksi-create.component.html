@@ -1,0 +1,196 @@
+<app-header></app-header>
+<div class="content d-flex flex-column flex-column-fluid">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title align-items-start flex-column">
+          <span class="card-label fw-bolder fs-3 mb-1">Tambah Transaksi</span>
+        </h3>
+        <div
+          class="card-toolbar"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          data-bs-trigger="hover"
+          title="Kembali dari halaman">
+          <a routerLink="/transaksi" class="btn btn-sm btn-light-primary">
+            Kembali
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="pb-3">
+            <h5 class="bg-info text-white p-3">Transaksi</h5>
+          </div>
+          <div class="row">
+            <div class="col-md-3 pb-3">
+              <label for="noTransaksi" class="form-label">No Transaksi</label>
+              <input type="text" class="form-control" id="noTransaksi" [value]="transaksiData?.kode" disabled>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 pb-3">
+              <label for="tanggalTransaksi" class="form-label">Tanggal Transaksi</label>
+              <input type="text" class="form-control" id="tanggalTransaksi" [value]="transaksiData?.tgl" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="row pt-3">
+          <div class="pb-3">
+            <h5 class="bg-info text-white p-3">Customer</h5>
+          </div>
+          <div class="row">
+            <div class="col-md-3 pb-3">
+              <label for="customerCode" class="form-label">Kode</label>
+              <input type="text" class="form-control" id="customerCode" placeholder="Pilih Customer..."
+                     (click)="openCustomerModal()" [value]="selectedCustomerCode" readonly>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 pb-3">
+              <label for="customerName" class="form-label">Nama</label>
+              <input type="text" class="form-control" id="customerName" [value]="selectedCustomerName" disabled>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 pb-3">
+              <label for="customerTelp" class="form-label">Telp</label>
+              <input type="text" class="form-control" id="customerTelp" [value]="selectedCustomerTelp" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label class="form-label">Pilih Barang</label>
+            <select id="itemSelect" class="form-control" [(ngModel)]="selectedItem"
+                    (ngModelChange)="onItemChange($event)">
+              <option *ngFor="let barang of barangList" [value]="barang.kode">
+                {{ barang.kode }}
+                - {{ barang.nama }} -
+                {{ barang.harga | currency:'Rp ':'symbol' }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label for="qty" class="form-label">Qty</label>
+            <input type="number" class="form-control" id="qty" min="1" [(ngModel)]="qty">
+          </div>
+          <div class="col-md-2">
+            <label for="diskon" class="form-label">Diskon (%)</label>
+            <input type="number" class="form-control" id="diskon" min="0" [(ngModel)]="diskon">
+          </div>
+        </div>
+        <div class="row">
+          <div class="mt-3">
+            <div class="col-md-2 pb-3">
+              <button class="btn btn-primary btn-sm"
+                      (click)="addItem()"
+                      [disabled]="isLoading || isSelected">
+                <ng-container *ngIf="(isLoading) === false">
+                  <span class="indicator-label">Tambah</span>
+                </ng-container>
+                <ng-container *ngIf="isLoading">
+                  <span class="indicator-progress" [style.display]="'block'">
+                    Please wait...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                  </span>
+                </ng-container>
+              </button>
+            </div>
+            <table
+              class="table table-row-gray-300 align-middle gs-0 gy-4 table-hover table-striped table-row-bordered table-bordered">
+              <thead>
+              <tr>
+                <th rowspan="2" class="text-center"><strong>Aksi</strong></th>
+                <th rowspan="2" class="text-center"><strong>No</strong></th>
+                <th rowspan="2" class="text-center"><strong>Kode Barang</strong></th>
+                <th rowspan="2" class="text-center"><strong>Nama Barang</strong></th>
+                <th rowspan="2" class="text-center text-danger"><strong>Qty</strong></th>
+                <th rowspan="2" class="text-center"><strong>Harga Bandrol</strong></th>
+                <th colspan="2" class="text-center"><strong>Diskon</strong></th>
+                <th rowspan="2" class="text-center"><strong>Harga Diskon</strong></th>
+                <th rowspan="2" class="text-center"><strong>Total</strong></th>
+              </tr>
+              <tr>
+                <th class="text-center text-danger"><strong>(%)</strong></th>
+                <th class="text-center"><strong>(Rp)</strong></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of items; let i = index">
+                <td class="text-center">
+                  <button class="btn btn-sm btn-warning mx-2">Ubah</button>
+                  <button class="btn btn-sm btn-danger" (click)="deleteBarang(item.idBarang)">Hapus</button>
+                </td>
+                <td class="text-center">{{ i + 1 }}</td>
+                <td>{{ item.kodeBarang }}</td>
+                <td>{{ item.namaBarang }}</td>
+                <td class="text-center">{{ item.qty }}</td>
+                <td>{{ item.hargaBandrol | currency:' ':'symbol' }}</td>
+                <td>{{ item.diskonPersen }}%</td>
+                <td>{{ item.diskonRupiah | currency:' ':'symbol' }}</td>
+                <td>{{ item.hargaDiskon | currency:' ':'symbol' }}</td>
+                <td>{{ item.total | currency:' ':'symbol' }}</td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="row">
+              <div class="col-md-6 offset-md-6">
+                <table class="table table-borderless">
+                  <tbody>
+                  <tr>
+                    <td>Sub Total</td>
+                    <td class="text-end">{{ subTotal | currency:' ':'symbol' }}</td>
+                  </tr>
+                  <tr>
+                    <td>Diskon</td>
+                    <td class="text-end">
+                      <input type="number" class="form-control" [(ngModel)]="userDiskon">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Ongkir</td>
+                    <td class="text-end">
+                      <input type="number" class="form-control" [(ngModel)]="userOngkir">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Total Bayar</td>
+                    <td class="text-end">{{ totalBayar | currency:' ':'symbol' }}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-center">
+        <button type="button" class="btn btn-primary btn-xl me-3" (click)="saveTransaksi()"
+                [disabled]="isLoading">
+          <ng-container *ngIf="(isLoading) === false">
+            <span class="indicator-label">Simpan</span>
+          </ng-container>
+          <ng-container *ngIf="isLoading">
+                  <span class="indicator-progress" [style.display]="'block'">
+                    Please wait...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                  </span>
+          </ng-container>
+        </button>
+        <button type="button" class="btn btn-danger btn-xl" (click)="cancelTransaksi()"
+                [disabled]="isLoading">
+          <ng-container *ngIf="(isLoading) === false">
+            <span class="indicator-label">Batal</span>
+          </ng-container>
+          <ng-container *ngIf="isLoading">
+                  <span class="indicator-progress" [style.display]="'block'">
+                    Please wait...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                  </span>
+          </ng-container>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

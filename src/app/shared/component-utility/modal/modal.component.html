@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <h4 class="modal-title">Pilih Customer</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let customer of customers" (click)="onSelect(customer)">
+      {{ customer.kode }} - {{ customer.name }}
+      <br>
+      <strong>{{ customer.telp }}</strong>
+    </li>
+  </ul>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">Close</button>
+</div>

@@ -1,0 +1,8 @@
+.table-bordered {
+  border-collapse: collapse;
+}
+
+.table-bordered tr, .table-bordered td,  .table-bordered tfoot{
+  border: 1px solid grey;
+  border-collapse: collapse;
+}
