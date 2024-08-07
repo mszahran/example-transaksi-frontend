@@ -20,7 +20,7 @@ export class TransaksiService {
 
   getTransaksis() {
     return this.http.get<{ message: string, data: TransaksiModel[] }>(
-      'https://example-transaksi-api.local/api/v1/transaksi/list'
+      'https://darkslategrey-panther-414698.hostingersite.com/api/v1/transaksi/list'
     ).pipe(
       map(response => {
         const transaksis = response.data;
@@ -49,7 +49,7 @@ export class TransaksiService {
 
   getTransaksiCount() {
     return this.http.get<{ message: string, data: number }>(
-      'https://example-transaksi-api.local/api/v1/transaksi/count-transaksi'
+      'https://darkslategrey-panther-414698.hostingersite.com/api/v1/transaksi/count-transaksi'
     ).pipe(
       map(response => response.data)
     );

@@ -45,7 +45,7 @@ export class TransaksiCreateComponent implements OnInit {
     this.http.get<{
       message: string;
       data: NoTransaksiModel
-    }>('https://example-transaksi-api.local/api/v1/transaksi/no-transaksi/create')
+    }>('https://darkslategrey-panther-414698.hostingersite.com/api/v1/transaksi/no-transaksi/create')
       .subscribe(response => {
         const data = response.data;
         this.transaksiData = new NoTransaksiModel(data.id, data.kode, data.tgl);
@@ -69,7 +69,7 @@ export class TransaksiCreateComponent implements OnInit {
       this.isSelected = true;
     }
 
-    this.http.get<{ message: string; data: any[] }>('https://example-transaksi-api.local/api/v1/barang/list')
+    this.http.get<{ message: string; data: any[] }>('https://darkslategrey-panther-414698.hostingersite.com/api/v1/barang/list')
       .subscribe(response => {
         this.isLoading = false;
         this.isSelected = false;
@@ -101,7 +101,7 @@ export class TransaksiCreateComponent implements OnInit {
         diskon_pct: this.diskon
       };
 
-      this.http.post('https://example-transaksi-api.local/api/v1/transaksi/barang-transaksi/create', newItem)
+      this.http.post('https://darkslategrey-panther-414698.hostingersite.com/api/v1/transaksi/barang-transaksi/create', newItem)
         .subscribe(
           response => {
             this.barangTransaksi.push(new BarangTransaksiModel(
@@ -136,7 +136,7 @@ export class TransaksiCreateComponent implements OnInit {
     this.http.get<{
       message: string,
       data: any
-    }>(`https://example-transaksi-api.local/api/v1/transaksi/barang-transaksi/detail/${id}`)
+    }>(`https://darkslategrey-panther-414698.hostingersite.com/api/v1/transaksi/barang-transaksi/detail/${id}`)
       .subscribe(
         response => {
           const data = response.data;
@@ -168,7 +168,7 @@ export class TransaksiCreateComponent implements OnInit {
 
     this.http.put<{
       message: string
-    }>(`https://example-transaksi-api.local/api/v1/transaksi/barang-transaksi/update`, updateData)
+    }>(`https://darkslategrey-panther-414698.hostingersite.com/api/v1/transaksi/barang-transaksi/update`, updateData)
       .subscribe(
         response => {
 
@@ -194,7 +194,7 @@ export class TransaksiCreateComponent implements OnInit {
       this.http.get<{
         message: string;
         data: any[]
-      }>(`https://example-transaksi-api.local/api/v1/transaksi/barang-transaksi/list/${this.transaksiData.kode}`)
+      }>(`https://darkslategrey-panther-414698.hostingersite.com/api/v1/transaksi/barang-transaksi/list/${this.transaksiData.kode}`)
         .subscribe(response => {
           const apiItems = response.data;
           this.items = apiItems.map(item => new ItemModel(
@@ -214,7 +214,7 @@ export class TransaksiCreateComponent implements OnInit {
   }
 
   deleteBarang(idBarangTransaksi: string): void {
-    const url = `https://example-transaksi-api.local/api/v1/transaksi/barang-transaksi/delete/${idBarangTransaksi}`;
+    const url = `https://darkslategrey-panther-414698.hostingersite.com/api/v1/transaksi/barang-transaksi/delete/${idBarangTransaksi}`;
 
     this.http.delete(url)
       .subscribe(
@@ -255,7 +255,7 @@ export class TransaksiCreateComponent implements OnInit {
       ongkir: this.userOngkir
     };
 
-    this.http.post('https://example-transaksi-api.local/api/v1/transaksi/save', transaksiPayload)
+    this.http.post('https://darkslategrey-panther-414698.hostingersite.com/api/v1/transaksi/save', transaksiPayload)
       .subscribe(
         response => {
           this.isLoading = false;
@@ -272,7 +272,7 @@ export class TransaksiCreateComponent implements OnInit {
     this.isLoading = true;
     const kodeTransaksi = this.transaksiData ? this.transaksiData.kode : '';
 
-    this.http.delete(`https://example-transaksi-api.local/api/v1/transaksi/cancel/${kodeTransaksi}`)
+    this.http.delete(`https://darkslategrey-panther-414698.hostingersite.com/api/v1/transaksi/cancel/${kodeTransaksi}`)
       .subscribe(
         response => {
           this.isLoading = false;
