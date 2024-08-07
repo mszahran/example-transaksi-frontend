@@ -25,6 +25,7 @@ export class TransaksiListComponent implements OnInit {
       }
     );
 
+    // Mengambil data transaksi
     this.transaksiService.getTransaksis().subscribe(
       (transaksis: TransaksiModel[]) => {
         this.transaksiService.setTransaksis(transaksis);
@@ -34,7 +35,7 @@ export class TransaksiListComponent implements OnInit {
       }
     );
 
-    // Mengambil jumlah transaksi
+    // Mengambil jumlah data transaksi
     this.transaksiService.getTransaksiCount().subscribe(
       (count: number) => {
         this.transaksiCount = count;
@@ -43,9 +44,5 @@ export class TransaksiListComponent implements OnInit {
         console.error('Error fetching transaksi count:', error);
       }
     );
-  }
-
-  get subTotal(): number {
-    return this.transaksis.reduce((sum, transaksi) => sum + transaksi.total_bayar, 0);
   }
 }
