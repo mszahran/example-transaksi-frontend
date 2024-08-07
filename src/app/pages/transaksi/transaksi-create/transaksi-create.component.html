@@ -12,7 +12,7 @@
           data-bs-placement="top"
           data-bs-trigger="hover"
           title="Kembali dari halaman">
-          <a routerLink="/transaksi" class="btn btn-sm btn-light-primary">
+          <a routerLink="/transaksi" class="btn btn-sm btn-warning">
             Kembali
           </a>
         </div>
@@ -118,8 +118,29 @@
               <tbody>
               <tr *ngFor="let item of items; let i = index">
                 <td class="text-center">
-                  <button class="btn btn-sm btn-warning mx-2" (click)="editItem(item.idSalesBarang)">Ubah</button>
-                  <button class="btn btn-sm btn-danger" (click)="deleteBarang(item.idBarang)">Hapus</button>
+                  <button class="btn btn-sm btn-warning me-2" (click)="editItem(item.idSalesBarang)"
+                          [disabled]="isLoading">
+                    <ng-container *ngIf="(isLoading) === false">
+                      <span class="indicator-label">Ubah</span>
+                    </ng-container>
+                    <ng-container *ngIf="isLoading">
+                      <span class="indicator-progress" [style.display]="'block'">
+                        Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                      </span>
+                    </ng-container>
+                  </button>
+                  <button class="btn btn-sm btn-danger" (click)="deleteBarang(item.idBarang)" [disabled]="isLoading">
+                    <ng-container *ngIf="(isLoading) === false">
+                      <span class="indicator-label">Hapus</span>
+                    </ng-container>
+                    <ng-container *ngIf="isLoading">
+                      <span class="indicator-progress" [style.display]="'block'">
+                        Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                      </span>
+                    </ng-container>
+                  </button>
                 </td>
                 <td class="text-center">{{ i + 1 }}</td>
                 <td>{{ item.kodeBarang }}</td>
@@ -165,28 +186,28 @@
         </div>
       </div>
       <div class="card-footer text-center">
-        <button type="button" class="btn btn-primary btn-xl me-3" (click)="saveTransaksi()"
+        <button type="button" class="btn btn-sm btn-primary me-3" (click)="saveTransaksi()"
                 [disabled]="isLoading">
           <ng-container *ngIf="(isLoading) === false">
             <span class="indicator-label">Simpan</span>
           </ng-container>
           <ng-container *ngIf="isLoading">
-                  <span class="indicator-progress" [style.display]="'block'">
-                    Please wait...
-                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                  </span>
+              <span class="indicator-progress" [style.display]="'block'">
+                Please wait...
+                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+              </span>
           </ng-container>
         </button>
-        <button type="button" class="btn btn-danger btn-xl" (click)="cancelTransaksi()"
+        <button type="button" class="btn btn-sm btn-danger" (click)="cancelTransaksi()"
                 [disabled]="isLoading">
           <ng-container *ngIf="(isLoading) === false">
             <span class="indicator-label">Batal</span>
           </ng-container>
           <ng-container *ngIf="isLoading">
-                  <span class="indicator-progress" [style.display]="'block'">
-                    Please wait...
-                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                  </span>
+            <span class="indicator-progress" [style.display]="'block'">
+              Please wait...
+              <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </span>
           </ng-container>
         </button>
       </div>
