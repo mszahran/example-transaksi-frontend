@@ -34,6 +34,7 @@ export class TransaksiService {
           customer: new CustomerModel(
             transaksi.customer.name,
           ),
+          t_sales_det_count: transaksi.t_sales_det_count,
           subtotal: transaksi.subtotal,
           diskon: transaksi.diskon,
           ongkir: transaksi.ongkir ? transaksi.ongkir : 0,

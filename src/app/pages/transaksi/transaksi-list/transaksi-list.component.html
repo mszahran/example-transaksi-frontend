@@ -19,10 +19,10 @@
         </div>
       </div>
       <div class="card-body">
-        <div class="d-flex justify-content-end">
-          <input type="text" name="search" class="form-control form-control-solid mb-3 mb-lg-3 w-25"
-                 placeholder="Cari.....">
-        </div>
+        <!--<div class="d-flex justify-content-end">-->
+        <!--  <input type="text" name="search" class="form-control form-control-solid mb-3 mb-lg-3 w-25"-->
+        <!--         placeholder="Cari.....">-->
+        <!--</div>-->
         <table
           class="table table-row-gray-300 align-middle gs-0 gy-4 table-hover table-striped table-row-bordered table-bordered">
           <thead>
@@ -44,7 +44,7 @@
             <td>{{ transaction.kode }}</td>
             <td>{{ transaction.tgl }}</td>
             <td>{{ transaction.customer.name }}</td>
-            <td>{{ '0' }}</td>
+            <td>{{ transaction.t_sales_det_count }}</td>
             <td>{{ transaction.subtotal | currency:' ':'symbol' }}</td>
             <td>{{ transaction.diskon | currency:' ':'symbol' }}</td>
             <td>{{ transaction.ongkir | currency:' ':'symbol' }}</td>
