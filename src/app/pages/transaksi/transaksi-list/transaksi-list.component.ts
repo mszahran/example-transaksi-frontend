@@ -15,7 +15,7 @@ export class TransaksiListComponent implements OnInit {
   transaksis: TransaksiModel[] = [];
   subscription!: Subscription;
 
-  constructor(private transaksiService: TransaksiService, private router: Router, private route: ActivatedRoute) {
+  constructor(private transaksiService: TransaksiService) {
   }
 
   ngOnInit(): void {
