@@ -69,7 +69,10 @@ export class TransaksiCreateComponent implements OnInit {
       this.isSelected = true;
     }
 
-    this.http.get<{ message: string; data: any[] }>('https://darkslategrey-panther-414698.hostingersite.com/api/v1/barang/list')
+    this.http.get<{
+      message: string;
+      data: any[]
+    }>('https://darkslategrey-panther-414698.hostingersite.com/api/v1/barang/list')
       .subscribe(response => {
         this.isLoading = false;
         this.isSelected = false;
@@ -238,7 +241,15 @@ export class TransaksiCreateComponent implements OnInit {
   }
 
   saveTransaksi(): void {
-    this.isLoading = true;
+    this.isLoading = true
+
+    if (this.items.length == 0) {
+      alert('Harap tambah barang terlebih dahulu.');
+
+      this.isLoading = false;
+
+      return;
+    }
 
     if (this.selectedCustomerCode == '') {
       alert('Customer wajib dipilih terlebih dahulu.');
