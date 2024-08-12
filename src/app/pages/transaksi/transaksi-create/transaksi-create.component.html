@@ -96,64 +96,66 @@
                 </ng-container>
               </button>
             </div>
-            <table
-              class="table table-row-gray-300 align-middle gs-0 gy-4 table-hover table-striped table-row-bordered table-bordered">
-              <thead>
-              <tr>
-                <th rowspan="2" class="text-center"><strong>Aksi</strong></th>
-                <th rowspan="2" class="text-center"><strong>No</strong></th>
-                <th rowspan="2" class="text-center"><strong>Kode Barang</strong></th>
-                <th rowspan="2" class="text-center"><strong>Nama Barang</strong></th>
-                <th rowspan="2" class="text-center text-danger"><strong>Qty</strong></th>
-                <th rowspan="2" class="text-center"><strong>Harga Bandrol</strong></th>
-                <th colspan="2" class="text-center"><strong>Diskon</strong></th>
-                <th rowspan="2" class="text-center"><strong>Harga Diskon</strong></th>
-                <th rowspan="2" class="text-center"><strong>Total</strong></th>
-              </tr>
-              <tr>
-                <th class="text-center text-danger"><strong>(%)</strong></th>
-                <th class="text-center"><strong>(Rp)</strong></th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let item of items; let i = index">
-                <td class="text-center">
-                  <button class="btn btn-sm btn-warning me-2" (click)="editItem(item.idSalesBarang)"
-                          [disabled]="isLoading">
-                    <ng-container *ngIf="(isLoading) === false">
-                      <span class="indicator-label">Ubah</span>
-                    </ng-container>
-                    <ng-container *ngIf="isLoading">
+            <div class="table-responsive">
+              <table
+                class="table table-row-gray-300 align-middle gs-0 gy-4 table-hover table-striped table-row-bordered table-bordered">
+                <thead>
+                <tr>
+                  <th rowspan="2" class="text-center"><strong>Aksi</strong></th>
+                  <th rowspan="2" class="text-center"><strong>No</strong></th>
+                  <th rowspan="2" class="text-center"><strong>Kode Barang</strong></th>
+                  <th rowspan="2" class="text-center"><strong>Nama Barang</strong></th>
+                  <th rowspan="2" class="text-center text-danger"><strong>Qty</strong></th>
+                  <th rowspan="2" class="text-center"><strong>Harga Bandrol</strong></th>
+                  <th colspan="2" class="text-center"><strong>Diskon</strong></th>
+                  <th rowspan="2" class="text-center"><strong>Harga Diskon</strong></th>
+                  <th rowspan="2" class="text-center"><strong>Total</strong></th>
+                </tr>
+                <tr>
+                  <th class="text-center text-danger"><strong>(%)</strong></th>
+                  <th class="text-center"><strong>(Rp)</strong></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of items; let i = index">
+                  <td class="text-center">
+                    <button class="btn btn-sm btn-warning me-2" (click)="editItem(item.idSalesBarang)"
+                            [disabled]="isLoading">
+                      <ng-container *ngIf="(isLoading) === false">
+                        <span class="indicator-label">Ubah</span>
+                      </ng-container>
+                      <ng-container *ngIf="isLoading">
                       <span class="indicator-progress" [style.display]="'block'">
                         Please wait...
                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                       </span>
-                    </ng-container>
-                  </button>
-                  <button class="btn btn-sm btn-danger" (click)="deleteBarang(item.idBarang)" [disabled]="isLoading">
-                    <ng-container *ngIf="(isLoading) === false">
-                      <span class="indicator-label">Hapus</span>
-                    </ng-container>
-                    <ng-container *ngIf="isLoading">
+                      </ng-container>
+                    </button>
+                    <button class="btn btn-sm btn-danger" (click)="deleteBarang(item.idBarang)" [disabled]="isLoading">
+                      <ng-container *ngIf="(isLoading) === false">
+                        <span class="indicator-label">Hapus</span>
+                      </ng-container>
+                      <ng-container *ngIf="isLoading">
                       <span class="indicator-progress" [style.display]="'block'">
                         Please wait...
                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                       </span>
-                    </ng-container>
-                  </button>
-                </td>
-                <td class="text-center">{{ i + 1 }}</td>
-                <td>{{ item.kodeBarang }}</td>
-                <td>{{ item.namaBarang }}</td>
-                <td class="text-center">{{ item.qty }}</td>
-                <td>{{ item.hargaBandrol | currency:' ':'symbol' }}</td>
-                <td>{{ item.diskonPersen }}%</td>
-                <td>{{ item.diskonRupiah | currency:' ':'symbol' }}</td>
-                <td>{{ item.hargaDiskon | currency:' ':'symbol' }}</td>
-                <td>{{ item.total | currency:' ':'symbol' }}</td>
-              </tr>
-              </tbody>
-            </table>
+                      </ng-container>
+                    </button>
+                  </td>
+                  <td class="text-center">{{ i + 1 }}</td>
+                  <td>{{ item.kodeBarang }}</td>
+                  <td>{{ item.namaBarang }}</td>
+                  <td class="text-center">{{ item.qty }}</td>
+                  <td>{{ item.hargaBandrol | currency:' ':'symbol' }}</td>
+                  <td>{{ item.diskonPersen }}%</td>
+                  <td>{{ item.diskonRupiah | currency:' ':'symbol' }}</td>
+                  <td>{{ item.hargaDiskon | currency:' ':'symbol' }}</td>
+                  <td>{{ item.total | currency:' ':'symbol' }}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
             <div class="row">
               <div class="col-md-6 offset-md-6">
                 <table class="table table-borderless">

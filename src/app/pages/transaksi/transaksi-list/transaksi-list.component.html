@@ -23,41 +23,43 @@
         <!--  <input type="text" name="search" class="form-control form-control-solid mb-3 mb-lg-3 w-25"-->
         <!--         placeholder="Cari.....">-->
         <!--</div>-->
-        <table
-          class="table table-row-gray-300 align-middle gs-0 gy-4 table-hover table-striped table-row-bordered table-bordered">
-          <thead>
-          <tr>
-            <th class="text-center"><strong>No</strong></th>
-            <th><strong>No Transaksi</strong></th>
-            <th><strong>Tanggal</strong></th>
-            <th><strong>Nama Customer</strong></th>
-            <th><strong>Jumlah Barang</strong></th>
-            <th><strong>Sub Total</strong></th>
-            <th><strong>Diskon</strong></th>
-            <th><strong>Ongkir</strong></th>
-            <th><strong>Total</strong></th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let transaction of transaksis; let i = index">
-            <td class="text-center">{{ i + 1 }}</td>
-            <td>{{ transaction.kode }}</td>
-            <td>{{ transaction.tgl }}</td>
-            <td>{{ transaction.customer.name }}</td>
-            <td>{{ transaction.t_sales_det_count }}</td>
-            <td>{{ transaction.subtotal | currency:' ':'symbol' }}</td>
-            <td>{{ transaction.diskon | currency:' ':'symbol' }}</td>
-            <td>{{ transaction.ongkir | currency:' ':'symbol' }}</td>
-            <td>{{ transaction.total_bayar | currency:' ':'symbol' }}</td>
-          </tr>
-          <tfoot>
-          <tr>
-            <td colspan="7"></td>
-            <td><strong>Grand Total:</strong></td>
-            <td>{{ grandTotal | currency:' ':'symbol' }}</td>
-          </tr>
-          </tfoot>
-        </table>
+        <div class="table-responsive">
+          <table
+            class="table table-row-gray-300 align-middle gs-0 gy-4 table-hover table-striped table-row-bordered table-bordered">
+            <thead>
+            <tr>
+              <th class="text-center"><strong>No</strong></th>
+              <th><strong>No Transaksi</strong></th>
+              <th><strong>Tanggal</strong></th>
+              <th><strong>Nama Customer</strong></th>
+              <th><strong>Jumlah Barang</strong></th>
+              <th><strong>Sub Total</strong></th>
+              <th><strong>Diskon</strong></th>
+              <th><strong>Ongkir</strong></th>
+              <th><strong>Total</strong></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let transaction of transaksis; let i = index">
+              <td class="text-center">{{ i + 1 }}</td>
+              <td>{{ transaction.kode }}</td>
+              <td>{{ transaction.tgl }}</td>
+              <td>{{ transaction.customer.name }}</td>
+              <td>{{ transaction.t_sales_det_count }}</td>
+              <td>{{ transaction.subtotal | currency:' ':'symbol' }}</td>
+              <td>{{ transaction.diskon | currency:' ':'symbol' }}</td>
+              <td>{{ transaction.ongkir | currency:' ':'symbol' }}</td>
+              <td>{{ transaction.total_bayar | currency:' ':'symbol' }}</td>
+            </tr>
+            <tfoot>
+            <tr>
+              <td colspan="7"></td>
+              <td><strong>Grand Total:</strong></td>
+              <td>{{ grandTotal | currency:' ':'symbol' }}</td>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
       </div>
     </div>
   </div>
