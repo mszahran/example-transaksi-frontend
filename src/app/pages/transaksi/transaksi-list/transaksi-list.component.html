@@ -1,6 +1,6 @@
-<app-header></app-header>
-<div class="content d-flex flex-column flex-column-fluid">
-  <div class="container-fluid">
+<!-- <app-header></app-header> -->
+<div class="container-fluid">
+  <div class="content d-flex flex-column flex-column-fluid">
     <div class="card">
       <div class="card-header">
         <h3 class="card-title align-items-start flex-column">
@@ -19,26 +19,26 @@
         </div>
       </div>
       <div class="card-body">
-        <!--<div class="d-flex justify-content-end">-->
-        <!--  <input type="text" name="search" class="form-control form-control-solid mb-3 mb-lg-3 w-25"-->
-        <!--         placeholder="Cari.....">-->
-        <!--</div>-->
+        <div class="d-flex justify-content-end">
+         <input type="text" name="search" class="form-control form-control-solid mb-3 mb-lg-3 w-25"
+                placeholder="Cari.....">
+        </div>
         <div class="table-responsive">
           <table
             class="table table-row-gray-300 align-middle gs-0 gy-4 table-hover table-striped table-row-bordered table-bordered">
             <thead>
-            <tr>
-              <th class="text-center"><strong>No</strong></th>
-              <th><strong>No Transaksi</strong></th>
-              <th><strong>Tanggal</strong></th>
-              <th><strong>Nama Customer</strong></th>
-              <th><strong>Jumlah Barang</strong></th>
-              <th><strong>Sub Total</strong></th>
-              <th><strong>Diskon</strong></th>
-              <th><strong>Ongkir</strong></th>
-              <th><strong>Total</strong></th>
-            </tr>
-            </thead>
+              <tr>
+                <th class="text-center"><strong>No</strong></th>
+                <th (click)="onSort('kode')" style="cursor: pointer;"><strong>No Transaksi</strong></th>
+                <th (click)="onSort('tgl')" style="cursor: pointer;"><strong>Tanggal</strong></th>
+                <th (click)="onSort('customer')" style="cursor: pointer;"><strong>Nama Customer</strong></th>
+                <th (click)="onSort('t_sales_det')" style="cursor: pointer;"><strong>Jumlah Barang</strong></th>
+                <th (click)="onSort('subtotal')" style="cursor: pointer;"><strong>Sub Total</strong></th>
+                <th (click)="onSort('diskon')" style="cursor: pointer;"><strong>Diskon</strong></th>
+                <th (click)="onSort('ongkir')" style="cursor: pointer;"><strong>Ongkir</strong></th>
+                <th (click)="onSort('total_bayar')" style="cursor: pointer;"><strong>Total</strong></th>
+              </tr>
+            </thead>              
             <tbody>
             <tr *ngFor="let transaction of transaksis; let i = index">
               <td class="text-center">{{ i + 1 }}</td>

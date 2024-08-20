@@ -1,4 +1,4 @@
-<app-header></app-header>
+<!-- <app-header></app-header> -->
 <div class="content d-flex flex-column flex-column-fluid">
   <div class="container-fluid">
     <div class="card">
@@ -59,7 +59,10 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row pt-3">
+          <div class="pb-3">
+            <h5 class="bg-info text-white p-3">Pembelian</h5>
+          </div>
           <div class="col-md-3">
             <label class="form-label">Pilih Barang</label>
             <select id="itemSelect" class="form-control" [(ngModel)]="selectedItem"
@@ -189,7 +192,7 @@
       </div>
       <div class="card-footer text-center">
         <button type="button" class="btn btn-sm btn-primary me-3" (click)="saveTransaksi()"
-                [disabled]="isLoading">
+                [disabled]="isLoading || items.length == 0">
           <ng-container *ngIf="(isLoading) === false">
             <span class="indicator-label">Simpan</span>
           </ng-container>
@@ -201,7 +204,7 @@
           </ng-container>
         </button>
         <button type="button" class="btn btn-sm btn-danger" (click)="cancelTransaksi()"
-                [disabled]="isLoading">
+                [disabled]="isLoading || items.length == 0">
           <ng-container *ngIf="(isLoading) === false">
             <span class="indicator-label">Batal</span>
           </ng-container>

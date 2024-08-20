@@ -1,12 +1,4 @@
-export class CustomerModel {
-  public name: string;
-
-  constructor(
-    name: string
-  ) {
-    this.name = name;
-  }
-}
+import { CustomerModel } from "./customer.model";
 
 export class TransaksiModel {
   public id: number;

@@ -6,9 +6,12 @@ import {SpinnerComponent} from "./component-utility/spinner/spinner.component";
 import {PlaceholderDirective} from "./placeholder/placeholder.directive";
 import {DropdownDirective} from "./component-utility/dropdown-header/dropdown.directive";
 import {ModalComponent} from "./component-utility/modal/modal.component";
+import { HeaderComponent } from "./component-layout/header/header.component";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   declarations: [
+    HeaderComponent,
     AlertComponent,
     ModalComponent,
     SpinnerComponent,
@@ -17,8 +20,10 @@ import {ModalComponent} from "./component-utility/modal/modal.component";
   ],
   imports: [
     CommonModule,
+    RouterModule
   ],
   exports: [
+    HeaderComponent,
     AlertComponent,
     ModalComponent,
     SpinnerComponent,
