@@ -1,7 +1,7 @@
-import {NgModule} from "@angular/core";
-import {PreloadAllModules, RouterModule, Routes} from "@angular/router";
+import { NgModule } from "@angular/core";
+import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 
-import {AuthenticationGuard} from "./pages/authentication/authentication.guard";
+import { AuthenticationGuard } from "./pages/authentication/authentication.guard";
 // import {AuthenticationComponent} from "./pages/authentication/authentication.component";
 // import {LoginComponent} from "./pages/authentication/login/login.component";
 // import {RegisterComponent} from "./pages/authentication/register/register.component";
@@ -22,12 +22,13 @@ const appRoutes: Routes = [
   },
   {
     path: 'home',
+    canActivate: [AuthenticationGuard],
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)
-    // canActivate: [AuthenticationGuard],
     // component: HomeComponent
   },
   {
     path: 'transaksi',
+    canActivate: [AuthenticationGuard],
     loadChildren: () => import('./pages/transaksi/transaksi.module').then(m => m.TransaksiModule)
     // canActivate: [AuthenticationGuard],
     // children: [

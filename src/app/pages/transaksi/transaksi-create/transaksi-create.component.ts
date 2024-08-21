@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from "@angular/router";
 
-import {NoTransaksiModel} from '../../../shared/models/no-transaksi.model';
-import {ItemModel} from '../../../shared/models/item.model';
-import {BarangModel} from "../../../shared/models/barang.model";
-import {ModalComponent} from "../../../shared/component-utility/modal/modal.component";
-import {BarangTransaksiModel} from "../../../shared/models/barang-transaksi.model";
+import { NoTransaksiModel } from '../../../shared/models/no-transaksi.model';
+import { ItemModel } from '../../../shared/models/item.model';
+import { BarangModel } from "../../../shared/models/barang.model";
+import { ModalComponent } from "../../../shared/component-utility/modal/modal.component";
+import { BarangTransaksiModel } from "../../../shared/models/barang-transaksi.model";
 
 @Component({
   selector: 'app-transaksi-create',

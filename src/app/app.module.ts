@@ -1,11 +1,11 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {AppComponent} from './app.component';
-import {HttpClientModule} from "@angular/common/http";
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { HttpClientModule } from "@angular/common/http";
 
-import {AppRoutingModule} from "./app-routing.module";
-import {SharedModule} from "./shared/shared.module";
-import {CoreModule} from "./core.module";
+import { AppRoutingModule } from "./app-routing.module";
+import { SharedModule } from "./shared/shared.module";
+import { CoreModule } from "./core.module";
 
 // import {HeaderComponent} from './shared/component-layout/header/header.component';
 // import {HomeComponent} from './pages/home/home.component';

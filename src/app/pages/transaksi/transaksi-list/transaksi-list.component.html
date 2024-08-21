@@ -1,4 +1,3 @@
-<!-- <app-header></app-header> -->
 <div class="container-fluid">
   <div class="content d-flex flex-column flex-column-fluid">
     <div class="card">
@@ -21,7 +20,7 @@
       <div class="card-body">
         <div class="d-flex justify-content-end">
          <input type="text" name="search" class="form-control form-control-solid mb-3 mb-lg-3 w-25"
-                placeholder="Cari.....">
+                placeholder="Cari....." [(ngModel)]="searchQuery" (input)="onSearch()">
         </div>
         <div class="table-responsive">
           <table
@@ -29,18 +28,58 @@
             <thead>
               <tr>
                 <th class="text-center"><strong>No</strong></th>
-                <th (click)="onSort('kode')" style="cursor: pointer;"><strong>No Transaksi</strong></th>
-                <th (click)="onSort('tgl')" style="cursor: pointer;"><strong>Tanggal</strong></th>
-                <th (click)="onSort('customer')" style="cursor: pointer;"><strong>Nama Customer</strong></th>
-                <th (click)="onSort('t_sales_det')" style="cursor: pointer;"><strong>Jumlah Barang</strong></th>
-                <th (click)="onSort('subtotal')" style="cursor: pointer;"><strong>Sub Total</strong></th>
-                <th (click)="onSort('diskon')" style="cursor: pointer;"><strong>Diskon</strong></th>
-                <th (click)="onSort('ongkir')" style="cursor: pointer;"><strong>Ongkir</strong></th>
-                <th (click)="onSort('total_bayar')" style="cursor: pointer;"><strong>Total</strong></th>
+                <th (click)="onSort('kode')" style="cursor: pointer;">
+                  <div class="d-flex justify-content-between pe-1">
+                    <strong>No Transaksi</strong>
+                    <span *ngIf="sortColumn === 'kode'">{{ sortDirection === 'ASC' ? '↑' : '↓' }}</span>
+                  </div>
+                </th>
+                <th (click)="onSort('tgl')" style="cursor: pointer;">
+                  <div class="d-flex justify-content-between pe-1">
+                    <strong>Tanggal</strong>
+                    <span *ngIf="sortColumn === 'tgl'">{{ sortDirection === 'ASC' ? '↑' : '↓' }}</span>
+                  </div>
+                </th>
+                <th (click)="onSort('customer')" style="cursor: pointer;">
+                  <div class="d-flex justify-content-between pe-1">
+                    <strong>Nama Customer</strong>
+                    <span *ngIf="sortColumn === 'customer'">{{ sortDirection === 'ASC' ? '↑' : '↓' }}</span>
+                  </div>
+                </th>
+                <th (click)="onSort('t_sales_det_count')" style="cursor: pointer;">
+                  <div class="d-flex justify-content-between pe-1">
+                    <strong>Jumlah Barang</strong>
+                    <span *ngIf="sortColumn === 't_sales_det_count'">{{ sortDirection === 'ASC' ? '↑' : '↓' }}</span>
+                  </div>
+                </th>
+                <th (click)="onSort('subtotal')" style="cursor: pointer;">
+                  <div class="d-flex justify-content-between pe-1">
+                    <strong>Sub Total</strong>
+                    <span *ngIf="sortColumn === 'subtotal'">{{ sortDirection === 'ASC' ? '↑' : '↓' }}</span>
+                  </div>
+                </th>
+                <th (click)="onSort('diskon')" style="cursor: pointer;">
+                  <div class="d-flex justify-content-between pe-1">
+                    <strong>Diskon</strong>
+                    <span *ngIf="sortColumn === 'diskon'">{{ sortDirection === 'ASC' ? '↑' : '↓' }}</span>
+                  </div>
+                </th>
+                <th (click)="onSort('ongkir')" style="cursor: pointer;">
+                  <div class="d-flex justify-content-between pe-1">
+                    <strong>Ongkir</strong>
+                    <span *ngIf="sortColumn === 'ongkir'">{{ sortDirection === 'ASC' ? '↑' : '↓' }}</span>
+                  </div>
+                </th>
+                <th (click)="onSort('total_bayar')" style="cursor: pointer;">
+                  <div class="d-flex justify-content-between pe-3">
+                    <strong>Total</strong>
+                    <span *ngIf="sortColumn === 'total_bayar'">{{ sortDirection === 'ASC' ? '↑' : '↓' }}</span>
+                  </div>
+                </th>
               </tr>
-            </thead>              
+            </thead>             
             <tbody>
-            <tr *ngFor="let transaction of transaksis; let i = index">
+            <tr *ngFor="let transaction of filteredTransaksis; let i = index">
               <td class="text-center">{{ i + 1 }}</td>
               <td>{{ transaction.kode }}</td>
               <td>{{ transaction.tgl }}</td>

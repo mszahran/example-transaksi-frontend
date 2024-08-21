@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, catchError, tap, throwError} from "rxjs";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {Router} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, catchError, tap, throwError } from "rxjs";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { Router } from '@angular/router';
 
-import {UserModel} from '../../models/user.model';
+import { UserModel } from '../../models/user.model';
 
 export interface ResponseAuthentication {
   data: any;
@@ -14,7 +14,6 @@ export interface ResponseAuthentication {
   refreshToken: string;
   expires: string;
 }
-
 @Injectable({
   providedIn: 'root'
 })
