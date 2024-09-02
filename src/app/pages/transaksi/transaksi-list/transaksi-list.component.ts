@@ -22,15 +22,7 @@ export class TransaksiListComponent implements OnInit, OnDestroy {
   constructor(private transaksiService: TransaksiService) {
   }
 
-  ngOnInit(): void {
-    // this.transaksiStorageService.fetchTransaksis().subscribe();
-    // this.subscription = this.transaksiService.transaksisChanged.subscribe(
-    //   (transaksis: TransaksiModel[]) => {
-    //     this.transaksis = transaksis;
-    //   }
-    // );
-    // this.transaksis = this.transaksiService.getTransaksis();
-    
+  ngOnInit(): void {    
     this.subscription = this.transaksiService.transaksisChanged.subscribe(
       (transaksis: TransaksiModel[]) => {
         this.transaksis = transaksis;
@@ -84,13 +76,9 @@ export class TransaksiListComponent implements OnInit, OnDestroy {
   }
 
   onSort(column: string) {
-    // this.sortDirection = this.sortDirection === 'DESC' ? 'ASC' : 'DESC';
-    // this.fetchTransaksis(column);
-
     this.sortDirection = this.sortDirection === 'DESC' ? 'ASC' : 'DESC';
     this.sortColumn = column;
 
-    // Panggil fetchTransaksis dengan kolom yang diurutkan dan arah pengurutan
     this.fetchTransaksis(this.sortColumn);
   }
 
@@ -113,22 +101,32 @@ export class TransaksiListComponent implements OnInit, OnDestroy {
   }
   
   applySearch() {
-    const query = this.searchQuery.toLowerCase();
-    
+    const query = this.searchQuery.toLowerCase().replace(/,/g, ''); // Normalisasi query dengan menghapus koma
+  
+    // Fungsi untuk menghapus koma dari string dan mengkonversi ke string lowercase
     const normalizeNumberString = (value: string | undefined) => {
       return value ? value.replace(/,/g, '').toLowerCase() : '';
     };
-    
-    this.filteredTransaksis = this.transaksis.filter(transaksi =>
-      (transaksi.kode.toLowerCase().includes(query)) ||
-      (transaksi.tgl.toLowerCase().includes(query)) ||
-      (transaksi.customer.name.toLowerCase().includes(query)) ||
-      (normalizeNumberString(transaksi.t_sales_det_count?.toString()).includes(query)) ||
-      (normalizeNumberString(transaksi.subtotal?.toString()).includes(query)) ||
-      (normalizeNumberString(transaksi.diskon?.toString()).includes(query)) ||
-      (normalizeNumberString(transaksi.ongkir?.toString()).includes(query)) ||
-      (normalizeNumberString(transaksi.total_bayar?.toString()).includes(query))
-    );
+  
+    this.filteredTransaksis = this.transaksis.filter(transaksi => {
+      const kode = transaksi.kode.toLowerCase();
+      const tgl = transaksi.tgl.toLowerCase();
+      const customerName = transaksi.customer.name.toLowerCase();
+      const t_sales_det_count = normalizeNumberString(transaksi.t_sales_det_count?.toString());
+      const subtotal = normalizeNumberString(transaksi.subtotal?.toString());
+      const diskon = normalizeNumberString(transaksi.diskon?.toString());
+      const ongkir = normalizeNumberString(transaksi.ongkir?.toString());
+      const total_bayar = normalizeNumberString(transaksi.total_bayar?.toString());
+  
+      return (kode.includes(query) ||
+              tgl.includes(query) ||
+              customerName.includes(query) ||
+              t_sales_det_count.includes(query) ||
+              subtotal.includes(query) ||
+              diskon.includes(query) ||
+              ongkir.includes(query) ||
+              total_bayar.includes(query));
+    });
   }
 
   onSearch() {
